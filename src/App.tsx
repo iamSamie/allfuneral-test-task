@@ -1,11 +1,10 @@
-import { Button } from '@/modules/shared/ui';
-import { SvgIcon } from '@/modules/shared/components';
+import { Input } from '@/modules/shared/ui';
 
 export function App() {
 
   return (
-    <Button appearance="arrow">
-      <SvgIcon name="arrow-left" />
-    </Button>
+    <div style={{display: 'flex', justifyContent: 'center', alignItems: "center", marginTop: '200px'}}>
+      <Input/>
+    </div>
   );
 }

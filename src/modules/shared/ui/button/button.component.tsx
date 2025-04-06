@@ -7,20 +7,19 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
   appearance: 'filled' | 'outline' | 'flattened' | 'only_icon' | 'arrow';
   className?: string;
   icon?: ReactNode;
-  iconClassName?: string;
   children: ReactNode;
   fullWidth?: boolean;
 }
 
-export const Button = ({
-  appearance,
-  className,
-  iconClassName,
-  fullWidth,
-  children,
-  icon,
-  ...props
-}: ButtonProps) => {
+export const Button = (props: ButtonProps) => {
+  const {
+    appearance,
+    className,
+    fullWidth,
+    children,
+    icon,
+  } = props;
+
   const style = clsx(
     styles[appearance],
     { [styles.fullWidth]: fullWidth },
@@ -31,7 +30,7 @@ export const Button = ({
     <button
       type="button"
       className={style}
-      {...(props)}
+      {...props}
     >
       {icon && icon}
       {children}

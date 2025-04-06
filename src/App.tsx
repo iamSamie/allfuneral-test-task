@@ -1,12 +1,11 @@
 import { Button } from '@/modules/shared/ui';
+import { SvgIcon } from '@/modules/shared/components';
 
 export function App() {
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '200px' }}>
-      <Button appearance="flattened">
-        Label
-      </Button>
-    </div>
+    <Button appearance="arrow">
+      <SvgIcon name="arrow-left" />
+    </Button>
   );
 }

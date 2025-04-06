@@ -1,26 +1,21 @@
-import React, { ButtonHTMLAttributes, ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import clsx from 'clsx';
+
 import styles from './button.module.sass';
 
-interface ButtonAttributes extends ButtonHTMLAttributes<HTMLButtonElement> {}
-
-type ButtonOnClick = (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void | (() => void);
-
-interface CommonButtonProps {
-  appearance: 'filled' | 'outline' | 'flattened' | 'icon';
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
+  appearance: 'filled' | 'outline' | 'flattened' | 'only_icon' | 'arrow';
   className?: string;
-  icon: ReactNode;
+  icon?: ReactNode;
+  iconClassName?: string;
   children: ReactNode;
-  onClick?: ButtonOnClick;
   fullWidth?: boolean;
 }
-
-type ButtonProps = CommonButtonProps & ButtonAttributes;
 
 export const Button = ({
   appearance,
   className,
-  onClick,
+  iconClassName,
   fullWidth,
   children,
   icon,
@@ -28,9 +23,7 @@ export const Button = ({
 }: ButtonProps) => {
   const style = clsx(
     styles[appearance],
-    {
-      [styles.fullWidth]: fullWidth,
-    },
+    { [styles.fullWidth]: fullWidth },
     className,
   );
 
@@ -38,10 +31,9 @@ export const Button = ({
     <button
       type="button"
       className={style}
-      onClick={() => (onClick as ButtonOnClick)?.()}
-      {...(props as ButtonAttributes)}
+      {...(props)}
     >
-      {icon}
+      {icon && icon}
       {children}
     </button>
   );

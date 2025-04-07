@@ -15,8 +15,6 @@ export function App() {
           { value: 'строка4', label: 'строка4' },
           { value: 'строка5', label: 'строка5' },
         ]}
-        placeholder="Select something"
-        isMultiple
         selected={selected}
         onSelect={setSelected}
       />

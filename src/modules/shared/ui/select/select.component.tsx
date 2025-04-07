@@ -19,7 +19,7 @@ interface SelectProps {
   className?: string;
   options: Option[];
   isMultiple?: boolean;
-  placeholder: string;
+  placeholder?: string;
   selected: Option[] | Option | null;
   onSelect: Dispatch<SetStateAction<Option[] | Option | null>>;
 }
@@ -29,7 +29,7 @@ export const Select = (props: SelectProps) => {
     className,
     options,
     isMultiple = false,
-    placeholder,
+    placeholder = '',
     selected,
     onSelect,
     ...rest
@@ -56,7 +56,7 @@ export const Select = (props: SelectProps) => {
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-    const {key} = event;
+    const { key } = event;
 
     if (!isOpen && (key === 'Enter' || key === ' ')) {
       event.preventDefault();
@@ -101,6 +101,13 @@ export const Select = (props: SelectProps) => {
     return (selected as Option)?.label || placeholder;
   })();
 
+  const isOptionSelected = (option: Option) => {
+    if (Array.isArray(selected)) {
+      return selected.some((o) => o.value === option.value);
+    }
+    return selected?.value === option.value;
+  };
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
 
@@ -132,29 +139,23 @@ export const Select = (props: SelectProps) => {
               key={option.value}
               role="option"
               tabIndex={-1}
-              aria-selected={
-                isMultiple
-                  ? Array.isArray(selected) && selected.some((o) => o.value === option.value)
-                  : (selected as Option)?.value === option.value
-              }
+              aria-selected={isOptionSelected(option)}
               onClick={() => handleOptionClick(option)}
               className={clsx(styles.wrapper__options_list__option, {
                 [styles.focused]: index === focusedIndex,
-                [styles.selected]: isMultiple
-                  ? Array.isArray(selected) && selected.some((o) => o.value === option.value)
-                  : (selected as Option)?.value === option.value,
+                [styles.selected]: isOptionSelected(option),
               })}
             >
               {isMultiple && (
                 <label className={styles.checkbox_wrapper}>
                   <input
                     type="checkbox"
-                    checked={Array.isArray(selected) && selected.some((o) => o.value === option.value)}
+                    checked={isOptionSelected(option)}
                     onChange={() => handleOptionClick(option)}
                     className={styles.checkbox}
                   />
                   <div className={styles.checkbox_inner}>
-                    {Array.isArray(selected) && selected.some((o) => o.value === option.value) && (
+                    {isOptionSelected(option) && (
                       <SvgIcon name="check" className={styles.checkbox_icon} />
                     )}
                   </div>

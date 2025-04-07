@@ -18,6 +18,7 @@ export const Button = (props: ButtonProps) => {
     fullWidth,
     children,
     icon,
+    ...rest
   } = props;
 
   const style = clsx(
@@ -30,7 +31,7 @@ export const Button = (props: ButtonProps) => {
     <button
       type="button"
       className={style}
-      {...props}
+      {...rest}
     >
       {icon && icon}
       {children}

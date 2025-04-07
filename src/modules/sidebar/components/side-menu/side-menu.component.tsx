@@ -1,7 +1,8 @@
-
-import styles from './side-menu.module.sass'
 import { Button } from '@/modules/shared/ui';
 import { SvgIcon } from '@/modules/shared/components';
+
+import styles from './side-menu.module.sass'
+
 
 export const SideMenu = () => {
   return (
@@ -9,7 +10,7 @@ export const SideMenu = () => {
       <div className={styles.sidemenu__title}>
         <h2>Oak Tree Cemetery</h2>
         <h4>Process Manager</h4>
-        <hr className={styles.sidemenu__title__hr}/>
+        <hr className={styles.sidemenu__hr} />
       </div>
       <div className={styles.sidemenu__buttons}>
         <Button

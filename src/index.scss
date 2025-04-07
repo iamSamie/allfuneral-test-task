@@ -10,3 +10,8 @@ html, body {
 body #root {
     min-height: 100dvh;
 }
+
+#main {
+    width: 100%;
+    display: flex;
+}

@@ -18,12 +18,12 @@ export const Company = () => {
         >
           <SvgIcon name="arrow-left" />
         </Button>
-        <h1>Eternal Rest Funeral Home</h1>
+        <h1 className={styles.company__title}>Eternal Rest Funeral Home</h1>
         <div className={styles.company__icons}>
-          <button>
+          <button className={styles.company__icon_button}>
             <SvgIcon name="edit" />
           </button>
-          <button>
+          <button className={styles.company__icon_button}>
             <SvgIcon name="red-trash" />
           </button>
         </div>

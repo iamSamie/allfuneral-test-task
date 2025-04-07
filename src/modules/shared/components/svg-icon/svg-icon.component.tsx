@@ -12,7 +12,7 @@ interface SvgIconProps extends SVGProps<SVGSVGElement> {
 
 export const SvgIcon = ({ className = '', name, ...props }: SvgIconProps) => {
   const DynamicComponent = useMemo(() => {
-    return lazy(() => import(`./svg/${name}.svg?react`))
+    return lazy(() => import(`./svg/${name}.svg?react`));
   }, [name]);
 
   const resultedClassName = `${className} ${styles.icon}`.trim();

@@ -56,7 +56,7 @@ export const Select = (props: SelectProps) => {
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-    const { key } = event;
+    const {key} = event;
 
     if (!isOpen && (key === 'Enter' || key === ' ')) {
       event.preventDefault();
@@ -145,6 +145,21 @@ export const Select = (props: SelectProps) => {
                   : (selected as Option)?.value === option.value,
               })}
             >
+              {isMultiple && (
+                <label className={styles.checkbox_wrapper}>
+                  <input
+                    type="checkbox"
+                    checked={Array.isArray(selected) && selected.some((o) => o.value === option.value)}
+                    onChange={() => handleOptionClick(option)}
+                    className={styles.checkbox}
+                  />
+                  <div className={styles.checkbox_inner}>
+                    {Array.isArray(selected) && selected.some((o) => o.value === option.value) && (
+                      <SvgIcon name="check" className={styles.checkbox_icon} />
+                    )}
+                  </div>
+                </label>
+              )}
               {option.label}
             </li>
           ))}

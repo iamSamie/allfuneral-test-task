@@ -51,12 +51,16 @@
 
     &__option
       cursor: pointer
-      padding: 12px 16px
+      padding: 13px 16px
       font-weight: 400
       font-size: 13px
       line-height: 20px
       letter-spacing: 0.25px
       vertical-align: middle
+
+      display: flex
+      align-items: center
+      gap: 14px
 
       &:hover
         background-color: rgba(0, 0, 0, 0.05)
@@ -68,3 +72,36 @@
         background-color: rgba(0, 0, 0, 0.1)
         color: rgba(59, 59, 59, 1)
         font-weight: 500
+
+.checkbox_wrapper
+  display: flex
+  align-items: center
+  justify-content: center
+  position: relative
+
+
+.checkbox
+  width: 1px
+  height: 1px
+  opacity: 0
+  position: absolute
+
+.checkbox_inner
+  width: 20px
+  height: 20px
+  border: 1px solid rgba(0, 0, 0, 0.3)
+  border-radius: 4px
+  background-color: white
+  display: flex
+  align-items: center
+  justify-content: center
+  position: relative
+
+
+.checkbox_icon
+  width: 24px
+  height: 24px
+  color: black
+
+  path
+    fill: white

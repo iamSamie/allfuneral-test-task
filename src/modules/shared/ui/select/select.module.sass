@@ -1,0 +1,70 @@
+.wrapper
+  width: 100%
+  position: relative
+
+  &__select
+    width: 100%
+    padding: 10px 12px
+    border: 1px solid rgba(0, 0, 0, 0.2)
+    border-radius: 8px
+    cursor: pointer
+    display: flex
+    align-items: center
+    justify-content: space-between
+    background-color: white
+
+    &:hover
+      border-color: rgba(0, 0, 0, 0.5)
+
+    &:focus,
+    &:focus-within
+      border: none
+      outline: 2px solid rgba(53, 205, 253, 1)
+      outline-offset: 0
+
+    span
+      color: rgba(0, 0, 0, 0.8)
+      font-size: 14px
+      font-weight: 400
+      line-height: 24px
+      letter-spacing: 0.3px
+      vertical-align: middle
+
+
+  &__arrow
+    transition: transform 0.2s ease
+    transform: rotate(0deg)
+
+  &__arrow--open
+    transform: rotate(180deg)
+
+
+  &__options_list
+    position: relative
+    top: 8px
+
+    width: 100%
+    padding-top: 8px
+    border: none
+    border-radius: 8px
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16)
+
+    &__option
+      cursor: pointer
+      padding: 12px 16px
+      font-weight: 400
+      font-size: 13px
+      line-height: 20px
+      letter-spacing: 0.25px
+      vertical-align: middle
+
+      &:hover
+        background-color: rgba(0, 0, 0, 0.05)
+
+      &:last-child
+        border-radius: 0 0 8px 8px
+
+      &.selected
+        background-color: rgba(0, 0, 0, 0.1)
+        color: rgba(59, 59, 59, 1)
+        font-weight: 500

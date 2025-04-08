@@ -9,4 +9,10 @@ export const CompanyApi = {
 
     return response.data;
   },
+
+  updateCompany: async (id: string, data: Partial<Company>) => {
+    const response = await api.patch<Company>(endpoints.getCompany(id), data);
+
+    return response.data;
+  },
 };

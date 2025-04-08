@@ -6,6 +6,7 @@ import { Company } from '../types';
 
 class CompanyStore {
   company: Company | null = null;
+  backupCompany: Company | null = null;
   isLoading = false;
   error: string | null = null;
   cache: Record<string, { data: Company | null; timestamp: number }> = {};
@@ -37,13 +38,39 @@ class CompanyStore {
     }
   }
 
-  clearCache(id: string) {
+  clearCache(id = '12') {
     delete this.cache[id];
   }
 
-  async invalidateCompany(id: string) {
+  async invalidateCompany(id = '12') {
     this.clearCache(id);
     await this.fetchCompany(id);
+  }
+
+  async updateCompany(id = '12', updatedData: Partial<Company>) {
+    this.error = null;
+
+    const backup = this.company ? { ...this.company } : null;
+    this.backupCompany = backup;
+
+    if (this.company?.id === id) { // locally
+      this.company = { ...this.company, ...updatedData };
+    }
+
+    try {
+      const updatedCompany = await CompanyApi.updateCompany(id, updatedData);
+
+      this.company = { ...this.company, ...updatedCompany };
+      this.cache[id] = { data: this.company, timestamp: Date.now() };
+    } catch (err) {
+      this.error = err instanceof Error ? err.message : 'Unknown error';
+
+      if (this.backupCompany) {
+        this.company = { ...this.backupCompany };
+      }
+
+      throw err;
+    }
   }
 }
 export const companyStore = new CompanyStore();

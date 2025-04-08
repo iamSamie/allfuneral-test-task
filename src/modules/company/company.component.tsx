@@ -10,16 +10,19 @@ import styles from './company.module.sass';
 
 export const Company = observer(() => {
   const companyStore = useCompanyStore();
-  const contactStore = useContactStore();
+  const contactsStore = useContactStore();
 
-  if (companyStore.isLoading || contactStore.isLoading) return <div>Loading...</div>;
-  if (companyStore.error || contactStore.error) return <div>{companyStore.error}</div>;
-  if (!companyStore.company) return <div>No company data</div>;
+  if (companyStore.isLoading || contactsStore.isLoading) return <div>Loading...</div>;
+  if (companyStore.error || contactsStore.error) return <div>{companyStore.error || contactsStore.error}</div>;
+  if (!companyStore.company || !contactsStore.contacts) return <div>No company data</div>;
 
   return (
     <section className={styles.company}>
       <SideMenu />
-      <Layout company={companyStore.company} />
+      <Layout
+        company={companyStore.company}
+        contacts={contactsStore.contacts}
+      />
     </section>
   );
 });

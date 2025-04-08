@@ -4,7 +4,7 @@ import { ContactsApi } from '../api/contacts-api';
 import { Contacts } from '../types';
 
 class ContactStore {
-  contact: Contacts | null = null;
+  contacts: Contacts | null = null;
   isLoading = false;
   error: string | null = null;
   cache: Record<string, { data: Contacts | null; timestamp: number }> = {};
@@ -18,7 +18,7 @@ class ContactStore {
     const now = Date.now();
 
     if (this.cache[id] && (now - this.cache[id].timestamp) < this.ttl) {
-      this.contact = this.cache[id].data;
+      this.contacts = this.cache[id].data;
       return;
     }
 
@@ -27,7 +27,7 @@ class ContactStore {
 
     try {
       const data = await ContactsApi.getContact(id);
-      this.contact = data;
+      this.contacts = data;
       this.cache[id] = { data, timestamp: now };
     } catch (err) {
       this.error = err instanceof Error ? err.message : 'Failed to fetch contact';
@@ -46,4 +46,4 @@ class ContactStore {
   }
 }
 
-export const contactStore = new ContactStore();
+export const contactsStore = new ContactStore();

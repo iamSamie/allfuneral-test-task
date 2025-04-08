@@ -1,6 +1,6 @@
 import { api } from '@/modules/shared/api';
 
-import { Company } from '../types.ts';
+import { Company, Photo } from '../types.ts';
 import { endpoints } from './endpoints.ts';
 
 export const CompanyApi = {
@@ -18,5 +18,22 @@ export const CompanyApi = {
 
   deleteCompany: async (id: string) => {
     return await api.delete<Company>(endpoints.deleteCompany(id));
+  },
+
+  deleteImage: async (companyId: string, imageName: string) => {
+    return await api.delete(endpoints.deleteImage(companyId, imageName));
+  },
+
+  uploadImage: async (id: string, file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await api.post<Photo>(endpoints.postImage(id), formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return response.data;
   }
 };

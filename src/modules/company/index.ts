@@ -1,1 +1,3 @@
-export { Company } from './company.component';
+import { Company } from './company.component';
+
+export default Company;

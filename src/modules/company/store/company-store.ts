@@ -95,6 +95,44 @@ class CompanyStore {
       this.isLoading = false;
     }
   }
+
+  async deleteImage(companyId = '12', imageName: string) {
+    this.error = null;
+
+    try {
+      await CompanyApi.deleteImage(companyId, imageName);
+      await this.invalidateCompany(companyId);
+    } catch (err) {
+      this.error = err instanceof Error ? err.message : 'Error when deleting image';
+      throw err;
+    }
+  }
+
+  async uploadImage(companyId = '12', file: File) {
+    this.error = null;
+
+    const backupImages = this.company?.photos ? [...this.company.photos] : null;
+
+    try {
+      const newImage = await CompanyApi.uploadImage(companyId, file);
+
+      if (this.company && this.company.id === companyId) {
+        this.company.photos = [...this.company.photos, newImage];
+        this.cache[companyId] = {
+          data: this.company,
+          timestamp: Date.now(),
+        };
+      }
+    } catch (err) {
+      this.error = err instanceof Error ? err.message : 'Error when uploading image';
+
+      if (backupImages && this.company) {
+        this.company.photos = backupImages;
+      }
+
+      throw err;
+    }
+  }
 }
 
 export const companyStore = new CompanyStore();

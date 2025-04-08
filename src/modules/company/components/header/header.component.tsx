@@ -5,7 +5,7 @@ import { Button } from '@/modules/shared/ui';
 import { SvgIcon } from '@/modules/shared/components';
 
 import { RemoveCompany } from '../modals/remove-company.component';
-import { useCompanyStore } from '../../store/use-company-store';
+import { EditCompany } from '../modals/edit-company.component';
 
 import styles from './header.module.sass';
 
@@ -21,28 +21,14 @@ export const Header = (props: HeaderProps) => {
   const [isOpenEdit, setIsOpenEdit] = useState(false);
 
   const navigate = useNavigate();
-  const store = useCompanyStore();
 
   const handleCloseRemoveCompany = () => {
     setIsOpenRemove(false);
   }
 
-  const deleteCompany = async () => {
-    await store.deleteCompany('12');
-  };
-
   const handleCloseEditCompany = () => {
     setIsOpenEdit(false);
-  };
-
-  const updateCompany = async () => {
-    try {
-      await store.updateCompany('12', { name: 'Eternal Rest Funeral Home 123' });
-    } catch (error) {
-      console.error('Error updating company:', error);
-      alert('Failed to update company');
-    }
-  };
+  }
 
   return (
     <>
@@ -70,7 +56,8 @@ export const Header = (props: HeaderProps) => {
           </button>
         </div>
       </div>
-      {isOpenRemove && <RemoveCompany onClose={handleCloseRemoveCompany} onRemove={deleteCompany} />}
+      {isOpenRemove && <RemoveCompany onClose={handleCloseRemoveCompany} />}
+      {isOpenEdit && <EditCompany onClose={handleCloseEditCompany}  />}
     </>
   );
 };

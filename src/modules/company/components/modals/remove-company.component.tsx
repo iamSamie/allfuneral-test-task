@@ -1,22 +1,26 @@
 import { Modal } from '@/modules/shared/components/modal';
 import { Button } from '@/modules/shared/ui';
 
-import styles from './remove-company.module.sass';
+import { useCompanyStore } from '../../store/use-company-store';
+
+import styles from './modals.module.sass';
 
 interface RemoveCompanyProps {
   onClose: () => void;
-  onRemove: () => void;
 }
 
 export const RemoveCompany= (props: RemoveCompanyProps) => {
-  const {
-    onClose,
-    onRemove,
-  } = props;
+  const { onClose } = props;
+
+  const store = useCompanyStore();
+
+  const deleteCompany = async () => {
+    await store.deleteCompany('12');
+  };
 
   const handleRemove = () => {
-    onRemove();
-    onClose();
+    deleteCompany()
+      .then(() => onClose());
   }
 
   return (

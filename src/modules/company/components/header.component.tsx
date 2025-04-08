@@ -6,7 +6,13 @@ import { SvgIcon } from '@/modules/shared/components';
 import styles from './header.module.sass';
 
 
-export const Header = () => {
+interface HeaderProps {
+  name: string;
+}
+
+export const Header = (props: HeaderProps) => {
+  const { name } = props;
+
   const navigate = useNavigate();
 
   return (
@@ -18,7 +24,7 @@ export const Header = () => {
       >
         <SvgIcon name="arrow-left"/>
       </Button>
-      <h1 className={styles.header__title}>Eternal Rest Funeral Home</h1>
+      <h1 className={styles.header__title}>{name}</h1>
       <div className={styles.header__icons}>
         <button className={styles.header__icon_button}>
           <SvgIcon name="edit"/>

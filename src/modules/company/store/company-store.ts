@@ -63,7 +63,7 @@ class CompanyStore {
       this.company = { ...this.company, ...updatedCompany };
       this.cache[id] = { data: this.company, timestamp: Date.now() };
     } catch (err) {
-      this.error = err instanceof Error ? err.message : 'Unknown error';
+      this.error = err instanceof Error ? err.message : 'Error when updating a company';
 
       if (this.backupCompany) {
         this.company = { ...this.backupCompany };
@@ -72,5 +72,29 @@ class CompanyStore {
       throw err;
     }
   }
+
+  async deleteCompany(id = '12') {
+    this.error = null;
+    this.isLoading = true;
+
+    try {
+      const response = await CompanyApi.deleteCompany(id);
+
+      if (response.status === 200) {
+        this.clearCache(id);
+        this.backupCompany = null;
+        this.company = null;
+      }
+    } catch (err) {
+      this.error = err instanceof Error ? err.message : 'Error when deleting a company';
+
+      if (this.backupCompany) {
+        this.company = { ...this.backupCompany };
+      }
+    } finally {
+      this.isLoading = false;
+    }
+  }
 }
+
 export const companyStore = new CompanyStore();

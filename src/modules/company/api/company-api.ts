@@ -15,4 +15,8 @@ export const CompanyApi = {
 
     return response.data;
   },
+
+  deleteCompany: async (id: string) => {
+    return await api.delete<Company>(endpoints.deleteCompany(id));
+  }
 };

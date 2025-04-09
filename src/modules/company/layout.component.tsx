@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Contacts } from '@/modules/contacts';
+import { Contacts, useContactStore } from '@/modules/contacts';
 import { formatDate, formatSnakeOptions } from '@/modules/shared/helpers';
 import { Option } from '@/modules/shared/types';
 
@@ -11,6 +11,7 @@ import { Company } from './types';
 
 import styles from './layout.module.sass';
 import { Input, Select } from '@/modules/shared/ui';
+import { useCompanyStore } from '@/modules/company/store/use-company-store.ts';
 
 
 interface LayoutProps {
@@ -18,7 +19,15 @@ interface LayoutProps {
   contacts: Contacts;
 }
 
-export const Layout = ({ company, contacts } : LayoutProps) => {
+export const Layout = (props : LayoutProps) => {
+  const {
+    company,
+    contacts,
+  } = props;
+
+  const companyStore = useCompanyStore();
+  const contactsStore = useContactStore();
+
   const [isEditCompany, setIsEditCompany] = useState(false);
   const [isEditContact, setIsEditContact] = useState(false);
 
@@ -44,6 +53,41 @@ export const Layout = ({ company, contacts } : LayoutProps) => {
     setIsEditContact(!isEditContact);
   }
 
+  const handleSaveCompanyChanges = async () => {
+    try {
+      await companyStore.updateCompany(company.id, {
+        type: Array.isArray(companyType)
+          ? companyType.map((o) => o.value)
+          : [companyType?.value],
+        businessEntity,
+        contract: {
+          ...company.contract,
+          no: contractNo,
+          issue_date: contractDate,
+        },
+      });
+
+      setIsEditCompany(false);
+    } catch (e) {
+      console.error('Failed to save company changes:', e);
+    }
+  };
+
+  const handleSaveContactChanges = async () => {
+    try {
+      await contactsStore.updateContact(contacts.id, {
+        firstname,
+        lastname,
+        phone,
+        email,
+      })
+
+      setIsEditContact(false);
+    } catch (e) {
+      console.error('Failed to update contact', e);
+    }
+  };
+
   return (
     <div className={styles.layout}>
       <Header name={company.name} />
@@ -52,6 +96,7 @@ export const Layout = ({ company, contacts } : LayoutProps) => {
           title="Company Details"
           isEditMode={isEditCompany}
           onChangeMode={handleChangeCompanyMode}
+          onSave={handleSaveCompanyChanges}
           rows={[
             {
               label: 'Agreement:',
@@ -102,6 +147,7 @@ export const Layout = ({ company, contacts } : LayoutProps) => {
           title="Contacts"
           isEditMode={isEditContact}
           onChangeMode={handleChangeContactMode}
+          onSave={handleSaveContactChanges}
           rows={[
             {
               label: 'Responsible person:',
@@ -143,5 +189,5 @@ export const Layout = ({ company, contacts } : LayoutProps) => {
         <PhotoCard photos={company.photos} />
       </div>
     </div>
-  )
+  );
 };

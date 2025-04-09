@@ -20,6 +20,7 @@ interface DetailsCardProps {
   rows: Row[];
   isEditMode: boolean;
   onChangeMode: () => void;
+  onSave: () => Promise<void>;
 }
 
 export const DetailsCard = observer((props: DetailsCardProps) => {
@@ -28,6 +29,7 @@ export const DetailsCard = observer((props: DetailsCardProps) => {
     title,
     isEditMode,
     onChangeMode,
+    onSave,
   } = props;
 
   return (
@@ -47,7 +49,10 @@ export const DetailsCard = observer((props: DetailsCardProps) => {
             <Button
               appearance="flattened"
               icon={<SvgIcon name="check"/>}
-              onClick={onChangeMode}
+              onClick={() => {
+                onSave()
+                onChangeMode()
+              }}
             >
               Save changes
             </Button>
@@ -63,8 +68,8 @@ export const DetailsCard = observer((props: DetailsCardProps) => {
       }
     >
       <div className={styles.details}>
-        {rows.map((row, idx) => (
-          <div key={idx} className={styles.details__row}>
+        {rows.map((row, index) => (
+          <div key={index} className={styles.details__row}>
             <span className={styles.details__label}>{row.label}</span>
             {isEditMode && row.editComponent
               ? row.editComponent

@@ -88,6 +88,20 @@ export const Layout = (props : LayoutProps) => {
     }
   };
 
+  const resetCompanyChanges = () => {
+    setCompanyType(formatSnakeOptions(company.type));
+    setBusinessEntity(company.businessEntity);
+    setContractNo(company.contract.no);
+    setContractDate(formatDate(company.contract.issue_date));
+  };
+
+  const resetContactChanges = () => {
+    setFirstname(contacts.firstname);
+    setLastname(contacts.lastname);
+    setPhone(contacts.phone);
+    setEmail(contacts.email);
+  };
+
   return (
     <div className={styles.layout}>
       <Header name={company.name} />
@@ -97,6 +111,7 @@ export const Layout = (props : LayoutProps) => {
           isEditMode={isEditCompany}
           onChangeMode={handleChangeCompanyMode}
           onSave={handleSaveCompanyChanges}
+          onCancel={resetCompanyChanges}
           rows={[
             {
               label: 'Agreement:',
@@ -148,6 +163,7 @@ export const Layout = (props : LayoutProps) => {
           isEditMode={isEditContact}
           onChangeMode={handleChangeContactMode}
           onSave={handleSaveContactChanges}
+          onCancel={resetContactChanges}
           rows={[
             {
               label: 'Responsible person:',

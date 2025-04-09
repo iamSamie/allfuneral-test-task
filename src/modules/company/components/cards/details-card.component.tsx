@@ -21,6 +21,7 @@ interface DetailsCardProps {
   isEditMode: boolean;
   onChangeMode: () => void;
   onSave: () => Promise<void>;
+  onCancel: () => void;
 }
 
 export const DetailsCard = observer((props: DetailsCardProps) => {
@@ -30,6 +31,7 @@ export const DetailsCard = observer((props: DetailsCardProps) => {
     isEditMode,
     onChangeMode,
     onSave,
+    onCancel,
   } = props;
 
   return (
@@ -59,7 +61,10 @@ export const DetailsCard = observer((props: DetailsCardProps) => {
             <Button
               appearance="flattened"
               icon={<SvgIcon name="x"/>}
-              onClick={onChangeMode}
+              onClick={() => {
+                onChangeMode()
+                onCancel()
+              }}
             >
               Cancel
             </Button>

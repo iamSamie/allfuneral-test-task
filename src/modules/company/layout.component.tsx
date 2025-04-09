@@ -24,7 +24,7 @@ export const Layout = ({ company, contacts } : LayoutProps) => {
 
   const formattedOptions = formatSnakeOptions(company.type);
 
-  const [companyType, setCompanyType] = useState<Option[]>(() =>
+  const [companyType, setCompanyType] = useState<Option | Option[]>(() =>
     formatSnakeOptions(company.type)
   );
   const [businessEntity, setBusinessEntity] = useState(company.businessEntity);
@@ -84,13 +84,15 @@ export const Layout = ({ company, contacts } : LayoutProps) => {
             },
             {
               label: 'Company type:',
-              value: companyType.map((t) => t.label).join(', '),
+              value: Array.isArray(companyType)
+                ? companyType.map((t) => t.label).join(', ')
+                : companyType?.label || '',
               editComponent: (
                 <Select
                   options={formattedOptions}
                   selected={companyType}
                   onSelect={setCompanyType}
-                  multiple
+                  isMultiple
                 />
               ),
             },

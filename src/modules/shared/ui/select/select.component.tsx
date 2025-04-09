@@ -21,7 +21,7 @@ interface SelectProps {
   isMultiple?: boolean;
   placeholder?: string;
   selected: Option[] | Option | null;
-  onSelect: Dispatch<SetStateAction<Option[] | Option | null>>;
+  onSelect: Dispatch<SetStateAction<Option[] | Option>>;
 }
 
 export const Select = (props: SelectProps) => {

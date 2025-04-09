@@ -1,54 +1,56 @@
-# React + TypeScript + Vite
+# Тестовое задание для Allfuneral
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Необходимо сверстать и "оживить" интерфейс, макет которого расположен здесь:  
+👉 [Figma макет](https://www.figma.com/design/IGQeCdz8lHMRz5m5xteLCr/AFS---Test-Assignment)
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📦 Использованные технологии
 
-## Expanding the ESLint configuration
+- Vite
+- React
+- TypeScript
+- MobX
+- Axios (с интерцептором авторизации)
+- Sass (SASS-модули + БЭМ)
+- React Router DOM
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🚀 Запуск проекта
+
+```bash
+# 1. Клонируй репозиторий
+git clone 
+
+# 2. Установи зависимости
+npm install
+
+# 3. Запусти проект
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📌 Требования
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Интерфейс должен быть реализован в полном соответствии с макетом.
+- Элементы редактирования должны использовать предложенные UI-компоненты.
+- Где дизайн не описан — принимается самостоятельное решение.
+- Использовать ReactJS и технологии, указанные в описании вакансии.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### 🎯 Функциональность
+
+Интерфейс должен уметь:
+- отображать данные из API;
+- отправлять запрос на редактирование карточки;
+- отображать обновлённые данные после редактирования;
+- загружать и удалять изображения;
+- отправлять запрос на удаление карточки.
+
+## 🧪 API
+
+Базовый URL:  
+`https://test-task-api.allfuneral.com/`
+
+API не сохраняет изменения, но временно сохраняет изображения.
+
+Более подробное описание api по ссылке выше

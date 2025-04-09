@@ -1,1 +1,2 @@
-export { formatSnakeCaseToString } from './format-snake-case.helper.ts';
+export { formatSnakeOptions } from './format-snake-options.helper';
+export { formatDate } from './format-date.helper';
